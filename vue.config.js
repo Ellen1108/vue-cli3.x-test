@@ -1,6 +1,7 @@
 const merge = require('webpack-merge');// 用于做相应的合并处理
 const configs = require('./config');//引入额外配置
 const cfg = process.env.NODE_ENV === 'production' ? configs.build.env : configs.dev.env;
+
 module.exports = {
   publicPath: './',// webpack 配置文件中 output 的 publicPath 项 (baseUrl)
   outputDir: 'output',//将构建好的文件打包输出到 output 文件夹下（默认是 dist 文件夹）
@@ -21,13 +22,33 @@ module.exports = {
         console.log(args)
         return args
       })
+   
   },
   configureWebpack: config => {//configureWebpack 更倾向于整体替换和修改
     // config.plugins = []; // 这样会直接将 plugins 置空
-    // 使用 return 一个对象会通过 webpack-merge 进行合并，plugins 不会置空
-    return {
-      plugins: []
-    }
+    // return { // 使用 return 一个对象会通过 webpack-merge 进行合并，plugins 不会置空
+    //   plugins: []
+    // }
+    // if (configs.build.env) {
+    //   return {
+    //     plugins: [
+    //       new CompressionWebpackPlugin({
+    //         // 目标文件名称。[path] 被替换为原始文件的路径和 [query] 查询
+    //         filename: '[path].gz[query]',
+    //         // 使用 gzip 压缩
+    //         algorithm: 'gzip',
+    //         // 处理与此正则相匹配的所有文件
+    //         test: new RegExp(
+    //           '\\.(js|css)$'
+    //         ),
+    //         // 只处理大于此大小的文件
+    //         threshold: 10240,
+    //         // 最小压缩比达到 0.8 时才会被压缩
+    //         minRatio: 0.8
+    //       })
+    //     ]
+    //   }
+    // }
   },
   devServer: { //用于配置 webpack-dev-server 的行为
     open: true, // 是否自动打开浏览器页面

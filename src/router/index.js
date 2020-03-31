@@ -10,7 +10,7 @@ Vue.use(VueRouter)
 //   })
 // }
 // 按需 引入 Home 组件
-const Home = () => import('../views/Home.vue');
+const Home = () => import('@/views/Home.vue');
 
 const routes = [
   {
